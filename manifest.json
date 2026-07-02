@@ -1,9 +1,9 @@
 {
   "name": "명조 매트릭스",
   "short_name": "매트릭스",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#050812",
-  "theme_color": "#050812",
-  "icons": []
+  "background_color": "#070a12",
+  "theme_color": "#070a12",
+  "lang": "ko"
 }
