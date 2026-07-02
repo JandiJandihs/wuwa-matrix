@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#050812" />
+  <title>명조 매트릭스</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">명조: 워더링 웨이브</p>
+        <h1>매트릭스</h1>
+      </div>
+      <button id="btnInstall" class="ghost small" hidden>설치</button>
+    </header>
+
+    <section class="stats">
+      <div><b id="statTeams">5</b><span>파티</span></div>
+      <div><b id="statPlaced">0</b><span>배치</span></div>
+      <div><b id="statVigor">0</b><span>잔여 피로</span></div>
+    </section>
+
+    <nav class="tabs" aria-label="탭">
+      <button class="tab active" data-tab="teams">편성</button>
+      <button class="tab" data-tab="chars">캐릭터</button>
+      <button class="tab" data-tab="manage">관리</button>
+    </nav>
+
+    <main>
+      <section id="viewTeams" class="view active">
+        <div class="toolbar">
+          <button id="btnAddTeam" class="primary">+ 파티</button>
+          <button id="btnClearTeams" class="danger">편성 초기화</button>
+        </div>
+        <div id="selectedBanner" class="selected">선택 없음</div>
+        <div id="teamsList" class="teams"></div>
+      </section>
+
+      <section id="viewChars" class="view">
+        <div class="searchbox">
+          <input id="searchInput" type="search" placeholder="검색: 금희, 여우별, 회절..." autocomplete="off" />
+        </div>
+        <div id="elementFilters" class="chiprow"></div>
+        <div id="roleFilters" class="chiprow"></div>
+        <div id="charGrid" class="chargrid"></div>
+      </section>
+
+      <section id="viewManage" class="view">
+        <div class="panel">
+          <h2>DB 관리</h2>
+          <p class="muted">GitHub 업데이트 후 기존 저장 데이터가 남아있으면 최신목록 반영을 눌러줘.</p>
+          <button id="btnMergeDb" class="primary full">최신목록 반영</button>
+          <button id="btnResetDb" class="danger full">전체 초기화</button>
+        </div>
+        <div class="panel">
+          <h2>백업</h2>
+          <button id="btnExport" class="ghost full">JSON 내보내기</button>
+          <label class="fileBtn full">JSON 가져오기<input id="importInput" type="file" accept="application/json" hidden /></label>
+        </div>
+        <div class="panel">
+          <h2>캐릭터 추가</h2>
+          <button id="btnOpenEditor" class="primary full">+ 캐릭터 추가</button>
+        </div>
+        <div class="panel smalltext">
+          <h2>피로도 규칙</h2>
+          <p>2포인트: 벨리나, 설지, 복링, 파수인, 모니에, 치사, 수수</p>
+          <p>나머지는 기본 1포인트. 캐릭터 수정에서 직접 바꿀 수 있음.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bottomBar">
+      <button id="quickChars">캐릭터</button>
+      <button id="selectedName">선택 없음</button>
+      <button id="clearSelected">해제</button>
+    </footer>
+  </div>
+
+  <dialog id="editorDialog" class="dialog">
+    <form method="dialog" id="editorForm">
+      <h2 id="editorTitle">캐릭터 추가</h2>
+      <input id="edId" type="hidden" />
+      <label>한국명<input id="edName" required /></label>
+      <label>별칭<input id="edAlias" placeholder="쉼표로 구분" /></label>
+      <label>속성<select id="edElement"></select></label>
+      <label>무기<select id="edWeapon"></select></label>
+      <label>역할<select id="edRole"></select></label>
+      <label>피로도<select id="edVigor"><option value="1">1</option><option value="2">2</option></select></label>
+      <label>버전<input id="edVersion" placeholder="3.7" /></label>
+      <label>초상화 URL<input id="edPortrait" placeholder="https://..." /></label>
+      <div class="dialogActions">
+        <button value="cancel" class="ghost">취소</button>
+        <button id="btnSaveChar" value="default" class="primary">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="database.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
