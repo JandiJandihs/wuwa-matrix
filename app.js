@@ -91,7 +91,7 @@
   function render(){ renderStats(); if(state.tab==='teams') renderTeams(); if(state.tab==='chars') renderChars(); }
   function mergeDb(){
     const cur = new Map(state.chars.map(c=>[c.id,c]));
-    cloneDb().forEach(d=>{ cur.set(d.id,{...d,...(cur.get(d.id)||{}), kr:d.kr, en:d.en, alias:d.alias, element:d.element, weapon:d.weapon, role:d.role, vigor:d.vigor, version:d.version}); });
+    cloneDb().forEach(d=>{ cur.set(d.id,{...(cur.get(d.id)||{}), ...d}); });
     state.chars=[...cur.values()]; save(); render(); toast('최신목록 반영 완료');
   }
   function resetAll(){ if(!confirm('전체 초기화?')) return; localStorage.removeItem(LS); state.chars=cloneDb(); state.placements={}; state.teamCount=5; state.selectedId=null; save(); render(); toast('초기화 완료'); }
